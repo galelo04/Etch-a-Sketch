@@ -16,21 +16,33 @@ function makeGrid(size){
         }
     }
 }
-
 container.addEventListener('mouseover' , (e)=>{
     const square = document.querySelector(`#${e.target.id}`);
-    if(arr[+e.target.id.slice(6)]){
-        let currOpacity = (+colors[+e.target.id.slice(6)].slice(-4,-1)*10+0.1*10)/10;
-        if(currOpacity<=1)
-        colors[+e.target.id.slice(6)]= square.style.backgroundColor = colors[+e.target.id.slice(6)].slice(0,-4)+currOpacity+")";
+    if(e.ctrlKey){
+        if(arr[+e.target.id.slice(6)]){
+            console.log("2");
+            let currOpacity = (+colors[+e.target.id.slice(6)].slice(-4,-1)*10-0.1*10)/10;
+            if(currOpacity>=0)
+            colors[+e.target.id.slice(6)]= square.style.backgroundColor = colors[+e.target.id.slice(6)].slice(0,-4)+currOpacity+")";
+            if(currOpacity==0)
+                arr[+e.target.id.slice(6)]=false;        
+        }
     }
     else{
-        const redRandom = Math.floor(Math.random()*255);
-        const greenRandom = Math.floor(Math.random()*255);
-        const blueRandom = Math.floor(Math.random()*255);
-        colors[+e.target.id.slice(6)]= square.style.backgroundColor = `rgba(${redRandom},${greenRandom},${blueRandom},0.1)`;
-        arr[+e.target.id.slice(6)]=true;
+        if(arr[+e.target.id.slice(6)]){
+            let currOpacity = (+colors[+e.target.id.slice(6)].slice(-4,-1)*10+0.1*10)/10;
+            if(currOpacity<1)
+            colors[+e.target.id.slice(6)]= square.style.backgroundColor = colors[+e.target.id.slice(6)].slice(0,-4)+currOpacity+")";
+        }
+        else{
+            const redRandom = Math.floor(Math.random()*255);
+            const greenRandom = Math.floor(Math.random()*255);
+            const blueRandom = Math.floor(Math.random()*255);
+            colors[+e.target.id.slice(6)]= square.style.backgroundColor = `rgba(${redRandom},${greenRandom},${blueRandom},0.1)`;
+            arr[+e.target.id.slice(6)]=true;
+        }
     }
+
 });
 
 function removeGrid() {
@@ -40,8 +52,12 @@ function removeGrid() {
 
 
 but.addEventListener('click',()=>{
+    let newSize = +prompt("Enter the size of the new grid (1~100)");
+    
+    while(newSize>100 || newSize<1 || isNaN(newSize))
+        newSize = +prompt("Enter the size of the new grid (1~100)");
     removeGrid();
-    makeGrid(+prompt("Enter the size of the new grid"));
+    makeGrid(newSize);
 })
 
 makeGrid(16);
