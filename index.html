@@ -14,7 +14,22 @@
             <div class="gridSize">Enter the size of the new grid</div>
             <button class="gridButtonSize">New Size</button>
             <div class="info">Hold ctrl to decrease opacity</div>
-            <div class="info">Squares Color Random  <input type="checkbox"></div>
+            <!-- <label for="random" class="info">Squares Color Random </label> -->
+            <!-- <input type="checkbox" id="random"> -->
+            <legend>Choose Color for squares</legend>
+            <ul>
+                <li>
+                    <label for="color-button">Color</label>
+                    <input type="radio" name="color" id="color-button" value="color">
+                </li>
+                <li>
+                    <label for="random">Random</label>
+                    <input type="radio" name="color" id="random-button" value="random" checked>
+                </li>
+            </ul>
+                
+            <input type="color" name="" id="color" disabled>
+            
         </div>
         <div class="grid"></div>
     </div>
